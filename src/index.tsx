@@ -1,19 +1,56 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState, useEffect, memo } from 'react';
+import ReactDOM from 'react-dom';
+import { init, Event, State, subscriptions, update } from "./state";
+import { AppView } from "./view";
+import { program, Program } from 'futura';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const App: React.FunctionComponent<AppProps> = () => {
+  const [app, setApp] = useState(program<State, Event>({ init, update, subscriptions }));
+  const [state, setState] = useState(app.state);
+  const [pendingState, setPendingState] = useState<State>();
+  const [ subscription, setSubscription] = useState();
+
+  useEffect(() => {
+    app.observe((state) => {
+      if (pendingState === undefined) {
+        requestAnimationFrame(() => {
+          const state = pendingState;
+          setPendingState(undefined);
+          if (state !== undefined) {
+            setState(state);
+          }
+        });
+      }
+      setState(state);
+      setPendingState(state);
+    })
+  }, [state]);
+
+  const dispatch = (event: Event) => {
+    requestAnimationFrame(() => {
+      app.update(event);
+    });
+  }
+
+  return (
+    <AppView
+      state={state}
+      dispatch={dispatch} />
+  );
+}
+
+/** Types */
+
+interface AppProps {
+}
+
+interface AppState {
+  readonly state: State;
+}
+
+ReactDOM.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
