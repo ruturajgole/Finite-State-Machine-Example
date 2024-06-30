@@ -20,3 +20,5 @@ export type Event
 	= BeforeSubmit.Event
 	| AfterSubmit.Event
 	| Error.Event;
+
+export { AfterSubmit, BeforeSubmit, Error };

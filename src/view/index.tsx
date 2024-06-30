@@ -1,13 +1,12 @@
 import React from 'react';
 import { Dispatch } from 'futura';
-import { Event, State } from "../state";
-import { BeforeSubmit } from '../state/before-submit';
-import { AfterSubmit } from '../state/after-submit';
-import { BeforeSubmitView } from './before-submit';
-import { AfterSubmitView } from './after-submit';
-import { ErrorView } from './components';
+import { AfterSubmit, BeforeSubmit, Event, State } from "state";
+import { BeforeSubmitView } from 'view/before-submit';
+import { AfterSubmitView } from 'view/after-submit';
+import { ErrorView } from 'view/components';
 
 export const AppView: React.FunctionComponent<Props> = ({ state, dispatch }) => {
+  // State is a class instance, and routing is done on that basis
   if(state instanceof BeforeSubmit){
     return (
       <BeforeSubmitView
@@ -21,6 +20,8 @@ export const AppView: React.FunctionComponent<Props> = ({ state, dispatch }) => 
   }
   return <ErrorView dispatch={dispatch}/>;
 }
+
+/** Types */
 
 interface Props {
   readonly state: State;

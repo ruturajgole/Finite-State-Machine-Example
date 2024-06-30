@@ -1,5 +1,7 @@
 import { Next } from "futura";
-import { getRandomColor, Message } from "../../services";
+import { getRandomColor, Message } from "services";
+import { BeforeSubmit } from "state/before-submit";
+import { Error } from "state/error";
 
 /** State */
 export class AfterSubmit implements AfterSubmit.State {
@@ -9,7 +11,7 @@ export class AfterSubmit implements AfterSubmit.State {
     ],
   })
 
-  public update(event: any): Next<AfterSubmit> {
+  public update(event: any): Next<AfterSubmit | BeforeSubmit | Error> {
 		if(event instanceof ChangeBackgroundColor){
 			return {
 				state: new AfterSubmit(
@@ -17,6 +19,8 @@ export class AfterSubmit implements AfterSubmit.State {
 					getRandomColor(),
 				)
 			}
+		} else if(event instanceof ErroneousPage) {
+			return Error.init();
 		} else {
     	return { state: this };
 		}
@@ -40,10 +44,12 @@ export namespace AfterSubmit {
 	}
 
 	export type Event
-	= ChangeBackgroundColor;
+	= ChangeBackgroundColor
+	| ErroneousPage;
 }
 
 
 /** Messages */
 
 export class ChangeBackgroundColor {}
+export class ErroneousPage {}

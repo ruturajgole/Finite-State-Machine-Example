@@ -1,4 +1,4 @@
-import { Error, Refresh } from "../../../state/error";
+import { Error, Refresh } from "state/error";
 import { Dispatch } from "futura";
 
 const ErrorView: React.FunctionComponent<Props> = ({ dispatch }) => 

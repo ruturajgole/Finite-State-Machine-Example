@@ -1,6 +1,6 @@
 import { Dispatch } from "futura";
-import { Message } from "../../services";
-import { BeforeSubmit, EnterMessage, Submit } from "../../state/before-submit"
+import { Message } from "services";
+import { BeforeSubmit, EnterMessage, Submit } from "state/before-submit"
 
 export const BeforeSubmitView: React.FunctionComponent<Props> = ({ state, dispatch }) => {
 	const { content, numberofLetters } = state.text;
@@ -10,6 +10,7 @@ export const BeforeSubmitView: React.FunctionComponent<Props> = ({ state, dispat
 			<h2>Before Submit State</h2>
 			<input
 				defaultValue={content}
+				maxLength={50}
 				onInput={({ currentTarget }) => enterText(currentTarget.value, dispatch)} />
 			{
 				(numberofLetters === Message.NumberofLetters.Zero && <p>The content is empty. Please type something.</p>) ||

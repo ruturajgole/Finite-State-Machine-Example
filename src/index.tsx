@@ -1,14 +1,14 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react'; // Using Updated Libraries for State Management
 import ReactDOM from 'react-dom';
-import { init, Event, State, subscriptions, update } from "./state";
-import { AppView } from "./view";
-import { program, Program } from 'futura';
+import { init, Event, State, subscriptions, update } from "state";
+import { AppView } from "view";
+import { program } from 'futura'; // State Machine Library 
 
-const App: React.FunctionComponent<AppProps> = () => {
+const App: React.FunctionComponent = () => {
   const [app, setApp] = useState(program<State, Event>({ init, update, subscriptions }));
   const [state, setState] = useState(app.state);
   const [pendingState, setPendingState] = useState<State>();
-  const [ subscription, setSubscription] = useState();
+  const [ subscription, setSubscription] = useState(); // This app does not yet have subscriptions, but they can be added 
 
   useEffect(() => {
     app.observe((state) => {
@@ -37,15 +37,6 @@ const App: React.FunctionComponent<AppProps> = () => {
       state={state}
       dispatch={dispatch} />
   );
-}
-
-/** Types */
-
-interface AppProps {
-}
-
-interface AppState {
-  readonly state: State;
 }
 
 ReactDOM.render(

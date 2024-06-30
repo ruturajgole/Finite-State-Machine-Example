@@ -1,6 +1,6 @@
 import { Next } from "futura";
-import { calculateMessageLength, Message } from "../../services";
-import { AfterSubmit } from "../after-submit";
+import { calculateMessageLength, Message } from "services";
+import { AfterSubmit } from "state/after-submit";
 
 /** State */
 export class BeforeSubmit implements BeforeSubmit.State {
