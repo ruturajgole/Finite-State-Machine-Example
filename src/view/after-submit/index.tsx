@@ -1,12 +1,12 @@
 import { Dispatch } from "futura";
-import { AfterSubmit, ChangeBackgroundColor } from "../../state/after-click";
+import { AfterSubmit, ChangeBackgroundColor } from "../../state/after-submit";
 
 export const AfterSubmitView: React.FunctionComponent<Props> = ({ state, dispatch }) => {
 	const { text, backgroundColor } = state;
 	
 	return (
 		<div style={{backgroundColor}}>
-			<h2>After Click State</h2>
+			<h2>After Submit State</h2>
 			<p>Your text is "{text.content}"</p>
 			<button
 				onClick={() => changeBackgroundColor(dispatch)}>

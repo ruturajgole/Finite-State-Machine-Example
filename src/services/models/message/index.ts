@@ -5,6 +5,7 @@ namespace Message {
 	}
 
   export enum NumberofLetters {
+		Zero,
 		Even,
 		Odd,
 	}

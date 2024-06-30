@@ -1,9 +1,11 @@
 import { Message } from "../models";
 
 export const calculateMessageLength = (message: string): Message.NumberofLetters =>
-	message.length % 2
-	? Message.NumberofLetters.Odd
-	: Message.NumberofLetters.Even;
+	!message.length
+	? Message.NumberofLetters.Zero
+	: (message.length % 2
+			? Message.NumberofLetters.Odd
+			: Message.NumberofLetters.Even)
 
 const getRandomNumber = (maximum: number) => {
 	return Math.floor(Math.random() * maximum);

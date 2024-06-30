@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dispatch } from 'futura';
 import { Event, State } from "../state";
-import { BeforeSubmit } from '../state/before-click';
-import { AfterSubmit } from '../state/after-click';
+import { BeforeSubmit } from '../state/before-submit';
+import { AfterSubmit } from '../state/after-submit';
 import { BeforeSubmitView } from './before-submit';
 import { AfterSubmitView } from './after-submit';
+import { ErrorView } from './components';
 
 export const AppView: React.FunctionComponent<Props> = ({ state, dispatch }) => {
   if(state instanceof BeforeSubmit){
@@ -18,7 +19,7 @@ export const AppView: React.FunctionComponent<Props> = ({ state, dispatch }) => 
         state={state}
         dispatch={dispatch} />);
   }
-  return <></>;
+  return <ErrorView dispatch={dispatch}/>;
 }
 
 interface Props {

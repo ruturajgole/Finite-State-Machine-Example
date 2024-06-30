@@ -1,6 +1,7 @@
 import { Next } from "futura";
-import { AfterSubmit } from "./after-click";
-import { BeforeSubmit } from "./before-click";
+import { AfterSubmit } from "./after-submit";
+import { BeforeSubmit } from "./before-submit";
+import { Error } from "./error";
 
 export const init:() => Next<State> = BeforeSubmit.init;
 
@@ -12,8 +13,10 @@ export const subscriptions = (state: State) =>
 
 export type State
 	= BeforeSubmit
-	| AfterSubmit;
+	| AfterSubmit
+	| Error;
 
 export type Event
 	= BeforeSubmit.Event
-	| AfterSubmit.Event;
+	| AfterSubmit.Event
+	| Error.Event;

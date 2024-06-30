@@ -1,13 +1,13 @@
 import { Next } from "futura";
 import { calculateMessageLength, Message } from "../../services";
-import { AfterSubmit } from "../after-click";
+import { AfterSubmit } from "../after-submit";
 
 /** State */
 export class BeforeSubmit implements BeforeSubmit.State {
   public static init = (): Next<BeforeSubmit> => ({
     state: new BeforeSubmit(({
 			content: "",
-			numberofLetters: Message.NumberofLetters.Even,
+			numberofLetters: Message.NumberofLetters.Zero,
 		})),
     requests: [
     ],
@@ -16,6 +16,7 @@ export class BeforeSubmit implements BeforeSubmit.State {
   public update(event: any): Next<BeforeSubmit | AfterSubmit> {
 		if(event instanceof EnterMessage){
 			const { content } = event;
+		
 			return {
 				state: new BeforeSubmit({
 					content,
